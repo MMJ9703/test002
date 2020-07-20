@@ -37,7 +37,7 @@ def threaded_task(data):
 
         print ('===== run task')
 
-        # 读取mysql中的数据，设置查询pd.read_sql()函数
+        # 机组信息
         ID = 150817080435211
         Input_Time = '2020-6-20 00:00:00'
         days = 1
