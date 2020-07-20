@@ -42,7 +42,7 @@ def threaded_task(data):
         Input_Time = '2020-6-20 00:00:00'
         days = 1
         # 算法执行
-        mainf(ID, Input_Time, days, sqlsqlEngine)
+        mainf(ID, Input_Time, days, sqlEngine)
 
         # 将数据写入mysql数据库中，设置查询pd.to_sql()函数
         
