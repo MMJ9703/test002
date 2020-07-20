@@ -60,6 +60,7 @@ class Data_Collection():
         for k, group in data_file.groupby(['type']):
             G.append([k,group])
         data_list = []
+        data_type = []
         for g in G:
             type = g[0]
             Data = g[1]
@@ -192,20 +193,16 @@ class Data_Collection():
             final_data = pandas.concat(dataframe_merge).sort_index()
             fianl_data = final_data.reset_index()
             data_list.append(final_data)
-        return data_list
+            data_type.append(type)
+        return data_list, data_type
 #%%----------------------------------------------------------------------------
 import pandas as pd
 import pymysql
 from sqlalchemy import create_engine
 def mainf(ID, Input_Time, days, engine):
-    # ID = 150817080435211
-    # Input_Time = '2020-6-20 00:00:00'
-    # days = 1
-    # a = Data_Collection().single_unit(150817080435211)
-    b = Data_Collection().history_data(ID, Input_Time, days)
-    b0 = b[0].reset_index()
-    # mysql+pymysql://sgtest:sgtest@172.30.231.83:3306/sgdata
-    # mysql+pymysql://root:123456@localhost:3306/test
-    # engine = create_engine("mysql+pymysql://root:123456@localhost:3306/test")
-    b0.to_sql(name = 'id'+str(ID)+'_speed',con = engine,if_exists = 'replace',index = False,index_label = False)
+    d_lst, d_type = Data_Collection().history_data(ID, Input_Time, days)
+    for i in range(len(d_lst)):
+        df = d_lst[i].reset_index()
+        # engine = create_engine("mysql+pymysql://root:123456@localhost:3306/test")
+        df.to_sql(name = 'id'+str(ID)+d_type[i].lower(),con = engine,if_exists = 'replace',index = False,index_label = False)
     print('finish')
