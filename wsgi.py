@@ -23,7 +23,7 @@ sqlEngine = create_engine(mysql_uri, pool_recycle=3600)
 print ('=== mysql uri: ' + mysql_uri)
 
 # rest  api（应用执行端口）
-@application.route('/test/')
+@application.route('/')
 def hello():
     executor.submit(threaded_task,'data')
     return b'mainf '
