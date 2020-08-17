@@ -2,6 +2,7 @@
 import os
 # 添加自己编写的算法
 from Import_data import mainf
+from read_data import read_xml
 # Web应用程序设置
 from flask_executor import Executor
 import pandas as pd
@@ -23,7 +24,7 @@ sqlEngine = create_engine(mysql_uri, pool_recycle=3600)
 print ('=== mysql uri: ' + mysql_uri)
 
 # rest  api（应用执行端口）
-@application.route('/')
+@application.route('/text')
 def hello():
     executor.submit(threaded_task,'data')
     return b'mainf '
@@ -38,9 +39,10 @@ def threaded_task(data):
         print ('===== run task')
 
         # 机组信息
-        ID = 150817080435211
-        Input_Time = '2020-6-20 00:00:00'
-        days = 1
+        # ID = 150817080435211
+        # Input_Time = '2020-6-20 00:00:00'
+        # days = 1
+        ID,Input_Time,days = read_xml()
         # 算法执行
         mainf(ID, Input_Time, days, sqlEngine)
 
