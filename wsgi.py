@@ -30,6 +30,10 @@ def hello():
     executor.submit(threaded_task,'data')
     return b'mainf '
 
+@application.route('/api')
+def hello1():
+    executor.submit(threaded_task,'data')
+    return b'mainf '
 if __name__ == '__main__':
 
     application.run()
